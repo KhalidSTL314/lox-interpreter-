@@ -20,8 +20,7 @@ public class GenerateAst {
                 "Unary    : Token operator, Expr right"
         ));
 
-        ));
-    }
+      }
 
  private static void defineAst(
       String outputDir, String baseName, List<String> types)
@@ -34,6 +33,9 @@ public class GenerateAst {
     writer.println("import java.util.List;");
     writer.println();
     writer.println("abstract class " + baseName + " {");
+
+    defineVisitor(writer, baseName, types);
+
 
      // The AST classes.
     for (String type : types) {
@@ -52,6 +54,7 @@ public class GenerateAst {
 
 private static void defineVisitor(
       PrintWriter writer, String baseName, List<String> types) {
+    
     writer.println("  interface Visitor<R> {");
 
     for (String type : types) {
@@ -72,7 +75,6 @@ private static void defineType(
     // Constructor.
     writer.println("    " + className + "(" + fieldList + ") {");
 
-    defineVisitor(writer, baseName, types);
 
 
     // Store parameters in fields.
@@ -97,6 +99,7 @@ private static void defineType(
     for (String field : fields) {
       writer.println("    final " + field + ";");
     }
-
+  
     writer.println("  }");
   }
+}
